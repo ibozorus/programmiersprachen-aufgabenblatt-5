@@ -2,7 +2,7 @@
 # https://cmake.org/cmake/help/latest/guide/tutorial/
 
 cmake_minimum_required(VERSION 3.14)
-project(programmiersprachen-aufgabenblatt_3)
+project(programmiersprachen-aufgabenblatt_5)
 
 # Use the C++20 standard; fail if the compiler does not support it
 set(CMAKE_CXX_STANDARD 20)

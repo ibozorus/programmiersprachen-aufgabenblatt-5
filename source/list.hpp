@@ -58,7 +58,7 @@ class List {
     /* Declaration of Destructor */
     ~List();
 
-    /* Declaration of Unifying Assignment Operator - see: Vorlesung 6, pp. 11-13, watch video explanation!*/
+    /* Declaration of Unifying Assignment Operator - see: Vorlesung 10, pp. 11-13, watch video explanation!*/
     List& operator=(List rhs);
 
     /* Declaration of built-in Member-Swap method used by Unifying Assignment Operator */
@@ -87,6 +87,10 @@ class List {
 
     /* Declaration of push_front-Method */
     void pop_back();
+
+    /* Declaration of emplace-Method */
+    template <class... Args>
+    void emplace_back(Args&&... args);
 
     /* Declaration of front-Method */
     T& front();
@@ -123,14 +127,14 @@ class List {
 
  //=========================
 // not fully implemented yet
-/* Aufgabe 3.2 - Teil 1 */
+/* Aufgabe 5.2 - Teil 1 */
 /* ... */
 template <typename T>
 List<T>::List() {}
 
 //=========================
 // test and implement
-/* Aufgabe 3.2 - Teil 2 */
+/* Aufgabe 5.2 - Teil 2 */
 /* ... */
 template <typename T>
 std::size_t List<T>::size() const {
@@ -140,7 +144,7 @@ std::size_t List<T>::size() const {
 
 //=========================
 // test and implement
-/* Aufgabe 3.2 - Teil 3 */
+/* Aufgabe 5.2 - Teil 3 */
 /* ... */
 template <typename T>
 bool List<T>::empty() const {
@@ -149,15 +153,15 @@ bool List<T>::empty() const {
 };
 
 //=========================
-/* Aufgabe 3.3 - Teil 1 */
+/* Aufgabe 5.3 - Teil 1 */
 /* ... */
 template <typename T>
 void List<T>::push_front(T const& element) {
-    // TODO: push_front-method (Aufgabe 3.3)
+    // TODO: push_front-method (Aufgabe 5.3)
 }
 
 //=========================
-/* Aufgabe 3.3 - Teil 2 */
+/* Aufgabe 5.3 - Teil 2 */
 /* ... */
 template <typename T>
 void List<T>::pop_front() {
@@ -165,19 +169,19 @@ void List<T>::pop_front() {
         throw "List is empty";
     }
 
-    // TODO: remainder of pop_front-method (Aufgabe 3.3)
+    // TODO: remainder of pop_front-method (Aufgabe 5.3)
 }
 
 //=========================
-/* Aufgabe 3.3 - Teil 3 */
+/* Aufgabe 5.3 - Teil 3 */
 /* ... */
 template <typename T>
 void List<T>::push_back(T const& element) {
-    // TODO: push_back-method (Aufgabe 3.3)
+    // TODO: push_back-method (Aufgabe 5.3)
 }
 
 //=========================
-/* Aufgabe 3.3 - Teil 4 */
+/* Aufgabe 5.3 - Teil 4 */
 /* ... */
 template <typename T>
 void List<T>::pop_back() {
@@ -185,11 +189,22 @@ void List<T>::pop_back() {
         throw "List is empty";
     }
 
-    // TODO: remainder of pop_back-method (Aufgabe 3.3)
+    // TODO: remainder of pop_back-method (Aufgabe 5.3)
 }
 
 //=========================
-/* Aufgabe 3.3 - Teil 5 */
+/* Aufgabe 5.3 - Teil 5 */
+/* ... */
+template <typename T>
+template <class... Args>
+void List<T>::emplace_back(Args&&... args)
+{
+    // TODO: emplace_back-method (Aufgabe 5.3)
+}
+
+
+//=========================
+/* Aufgabe 5.3 - Teil 6 */
 /* ... */
 template <typename T>
 T& List<T>::front() {
@@ -197,11 +212,11 @@ T& List<T>::front() {
         throw "List is empty";
     }
 
-    // TODO: remainder of front-method (Aufgabe 3.3)
+    // TODO: remainder of front-method (Aufgabe 5.3)
 }
 
 //=========================
-/* Aufgabe 3.3 - Teil 6 */
+/* Aufgabe 5.3 - Teil 7 */
 /* ... */
 template <typename T>
 T& List<T>::back() {
@@ -209,13 +224,13 @@ T& List<T>::back() {
         throw "List is empty";
     }
 
-    // TODO: remainder of back-method (Aufgabe 3.3)
+    // TODO: remainder of back-method (Aufgabe 5.3)
 }
 
 //=========================
 // test and implement:
 // TODO: clear 
-// Aufgabe 3.4 - Teil 1
+// Aufgabe 5.4 - Teil 1
 /* ... */
 template <typename T>
 void List<T>::clear() {
@@ -225,25 +240,25 @@ void List<T>::clear() {
 //=========================
 // test and implement:
 // TODO: List Destructor implemented by calling clear
-// Aufgabe 3.4 - Teil 2
+// Aufgabe 5.4 - Teil 2
 /* ... */
 template <typename T>
 List<T>::~List() {
-    //TODO: Implement via clear-Method (Aufgabe 3.4)
+    //TODO: Implement via clear-Method (Aufgabe 5.4)
 } //can not be tested with unit tests
 
 //=========================
 // test and implement:
-//TODO: Copy-Konstruktor using Deep-Copy semantics 
-// Aufgabe 3.5
+// TODO: Copy-Konstruktor using Deep-Copy semantics
+// Aufgabe 5.5
 /* ... */
 template <typename T>
 List<T>::List(List<T> const& rhs) {}
 
 //=========================
 // test and implement:
-// TODO: helper-swap-method for bultin-types used by unifying assignment operator (see Vorlesung 6, pp. 11-13)
-// Aufgabe 3.6 - Teil 1
+// TODO: helper-swap-method for bultin-types used by unifying assignment operator (see Vorlesung 10, pp. 11-13)
+// Aufgabe 5.6 - Teil 1
 /* ... */
 template <typename T>
 void List<T>::swap(List<T>& rhs) {
@@ -252,8 +267,8 @@ void List<T>::swap(List<T>& rhs) {
 
 //=========================
 // test and implement:
-// TODO: unyfing assignment operator (see Vorlesung 6, pp. 11-13)
-// Aufgabe 3.6 - Teil 2
+// TODO: unyfing assignment operator (see Vorlesung 10, pp. 11-13)
+// Aufgabe 5.6 - Teil 2
 /* ... */
 template <typename T>
 List<T>& List<T>::operator=(List<T> rhs) {
@@ -261,7 +276,7 @@ List<T>& List<T>::operator=(List<T> rhs) {
 }
 
 //=========================
-// Aufgabe 3.7 - Teil 1
+// Aufgabe 5.7 - Teil 1
 /* ... */
 template <typename T>
 void List<T>::reverse() {
@@ -269,7 +284,7 @@ void List<T>::reverse() {
 }
 
 //=========================
-// Aufgabe 3.7 - Teil 2
+// Aufgabe 5.7 - Teil 2
 /* ... */
 template <typename T>
 List<T> reverse(List<T> const& list_to_reverse) {
@@ -277,44 +292,44 @@ List<T> reverse(List<T> const& list_to_reverse) {
 }
 
 //=========================
-// Aufgabe 3.8 - Teil 1
+// Aufgabe 5.8 - Teil 1
 /* ... */
 template <typename T>
 bool List<T>::operator==(List const& rhs) const {
-    //TODO: operator== (Aufgabe 3.8)
+    //TODO: operator== (Aufgabe 5.8)
 }
 
 //=========================
-// Aufgabe 3.8 - Teil 2
+// Aufgabe 5.8 - Teil 2
 /* ... */
 template <typename T>
 bool List<T>::operator!=(List const& rhs) const {
-    //TODO: operator!= (Aufgabe 3.8)
+    //TODO: operator!= (Aufgabe 5.8)
     // make use of operator== you implemented
 }
 
 //=========================
-// Aufgabe 3.9 - Teil 1
+// Aufgabe 5.9 - Teil 1
 /* ... */
 template <typename T>
 ListIterator<T> List<T>::begin() {
     //TODO: begin-Method returning an Iterator to the 
-    //      first element in the List (Aufgabe 3.9)
+    //      first element in the List (Aufgabe 5.9)
     return {};
 }
 
 //=========================
-// Aufgabe 3.9 - Teil 2
+// Aufgabe 5.9 - Teil 2
 /* ... */
 template <typename T>
 ListIterator<T> List<T>::end() {
     //TODO: end-Method returning an Iterator to element after (!) 
-    //      the last element in the List (Aufgabe 3.9)
+    //      the last element in the List (Aufgabe 5.9)
     return {};
 }
 
 //=========================
-// Aufgabe 3.11
+// Aufgabe 5.11
 /* ... */
 template <typename T>
 ListIterator<T> List<T>::insert(ListIterator<T> const& position, T const& value) {
@@ -322,7 +337,7 @@ ListIterator<T> List<T>::insert(ListIterator<T> const& position, T const& value)
 }
 
 //=========================
-// Aufgabe 3.12
+// Aufgabe 5.12
 /* ... */
 template <typename T>
 ListIterator<T> List<T>::erase(ListIterator<T> const& position) {
@@ -330,18 +345,18 @@ ListIterator<T> List<T>::erase(ListIterator<T> const& position) {
 }
 
 //=========================
-// Aufgabe 3.13 is a copy test and should be implemented in a cpp file
+// Aufgabe 5.13 is a copy test and should be implemented in a cpp file
 
 //=========================
 // test and implement:
-// TODO: Move-Konstruktor (Aufgabe 3.14)
+// TODO: Move-Konstruktor (Aufgabe 5.14)
 /* ... */
 template <typename T>
 List<T>::List(List<T>&& rhs) {}
 
 //=========================
 // test and implement:
-//TODO: Initializer - List Konstruktor (3.15 - Teil 1)
+//TODO: Initializer - List Konstruktor (5.15 - Teil 1)
 /* ...  */
 template <typename T>
 List<T>::List(std::initializer_list<T> ini_list) {
@@ -349,7 +364,7 @@ List<T>::List(std::initializer_list<T> ini_list) {
 }
 
 //=========================
-// Aufgabe 3.15 - Teil 2
+// Aufgabe 5.15 - Teil 2
 /* ... */
 template <typename T>
 List<T> operator+(List<T> const& lhs, List<T> const& rhs) {
