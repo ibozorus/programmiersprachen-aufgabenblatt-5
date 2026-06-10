@@ -165,86 +165,121 @@ bool List<T>::empty() const {
 
 //=========================
 /* Aufgabe 5.3 - Teil 1 */
-/* ... */
+/* Fügt ein neues Element am Anfang der Liste ein, indem das neue Element als Nachgänger auf first_ zeigt und
+ * das erste Element (falls vorhanden) als Vorgänger auf das neue element zeigt.
+ */
 template<typename T>
 void List<T>::push_front(T const& element) {
-  // TODO: push_front-method (Aufgabe 5.3)
+  ListNode<T>* new_node = new ListNode<T>{ element, nullptr, first_ };
+  if (empty()) {
+    last_ = new_node;
+  } else {
+    first_->prev = new_node;
+  }
+  first_ = new_node;
+  size_++;
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 2 */
-/* ... */
+/* Entfernt das erste Element von der Liste */
 template<typename T>
 void List<T>::pop_front() {
   if (empty()) {
     throw "List is empty";
   }
-
-  // TODO: remainder of pop_front-method (Aufgabe 5.3)
+  ListNode<T>* to_delete = first_;
+  first_ = first_->next;
+  if (first_ == nullptr) {
+    last_ = nullptr;
+  } else {
+    first_->prev = nullptr;
+  }
+  delete to_delete;
+  size_--;
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 3 */
-/* ... */
+/* Fügt ein Element am Ende der Liste ein */
 template<typename T>
 void List<T>::push_back(T const& element) {
-  // TODO: push_back-method (Aufgabe 5.3)
+  ListNode<T>* new_node = new ListNode<T>{ element, last_, nullptr };
+  if (empty()) {
+    first_ = new_node;
+  } else {
+    last_->next = new_node;
+  }
+  last_ = new_node;
+  size_++;
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 4 */
-/* ... */
+/* Entfernt das letzte Element der Liste */
 template<typename T>
 void List<T>::pop_back() {
   if (empty()) {
     throw "List is empty";
   }
-
-  // TODO: remainder of pop_back-method (Aufgabe 5.3)
+  ListNode<T>* to_delete = last_;
+  last_ = last_->prev;
+  if (last_ == nullptr) {
+    first_ = nullptr;
+  } else {
+    last_->next = nullptr;
+  }
+  delete to_delete;
+  size_--;
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 5 */
-/* ... */
+/* Konstruiert ein neues Element am Ende der Liste mit den übergebenen Argumenten */
 template<typename T>
-template<class... Args>
+template<class... Args> //Variadic Template
 void List<T>::emplace_back(Args&&... args) {
-  // TODO: emplace_back-method (Aufgabe 5.3)
+  push_back(T{ std::forward<Args>(args)... });
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 6 */
-/* ... */
+/* Konstruiert ein neues Element am Anfang der Liste mit den übergebenen Argumenten */
 template<typename T>
-template<class... Args>
+template<class... Args> //Variadic Template
 void List<T>::emplace_front(Args&&... args) {
-  // TODO: emplace_front-method (Aufgabe 5.3)
+  push_front(T{ std::forward<Args>(args)... });
+  //Argumente werden 1:1 weitergereicht an Konstruktor
 }
 
 
 //=========================
 /* Aufgabe 5.3 - Teil 6 */
-/* ... */
+/* Gibt das erste Element zurück, falls vorhanden */
 template<typename T>
 T& List<T>::front() {
   if (empty()) {
     throw "List is empty";
   }
-
-  // TODO: remainder of front-method (Aufgabe 5.3)
+  return first_->value;
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 8 */
-/* ... */
+/* Gibt das letzte Element zurück, falls vorhanden */
 template<typename T>
 T& List<T>::back() {
   if (empty()) {
     throw "List is empty";
   }
-
-  // TODO: remainder of back-method (Aufgabe 5.3)
+  return last_->value;
 }
+
+/** push_back/push_front nimmt eine Objektreferenz und speichert diese in der Liste
+ * emplace_back/emplace_front konstruiert zuerst ein neues Objekt mit den übergebenen Werten
+ * speichert dann dieses in der Liste
+ */
+
 
 //=========================
 // test and implement:
