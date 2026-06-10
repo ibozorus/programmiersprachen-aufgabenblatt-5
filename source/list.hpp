@@ -283,22 +283,22 @@ T& List<T>::back() {
 
 //=========================
 // test and implement:
-// TODO: clear
 // Aufgabe 5.4 - Teil 1
-/* ... */
+/* Entfernt das letzte Element, bis die Liste leer ist */
 template<typename T>
 void List<T>::clear() {
-
+  while (!empty()) {
+    pop_back();
+  }
 }
 
 //=========================
 // test and implement:
-// TODO: List Destructor implemented by calling clear
 // Aufgabe 5.4 - Teil 2
-/* ... */
+/* Destruktor */
 template<typename T>
 List<T>::~List() {
-  //TODO: Implement via clear-Method (Aufgabe 5.4)
+  clear();
 } //can not be tested with unit tests
 
 //=========================

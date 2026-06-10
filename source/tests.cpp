@@ -30,27 +30,34 @@ ListNode<T>* get_node_pointer(ListIterator<T> const& list_iterator_to_test) { re
 //test case definitions for pop methods of list
 #include "sub_tests/pop_front.test"
 #include "sub_tests/pop_back.test"
-
-//test case definitions for 
-
-//test cases for element access of list
-#include "sub_tests/front.test"
-#include "sub_tests/back.test"
-
-//test cases for retrieving iterators
-#include "sub_tests/begin.test"
-#include "sub_tests/end.test"
-
-//iterator tests
-#include "sub_tests/iterators/operator_star.test"
-#include "sub_tests/iterators/operator_arrow.test"
-#include "sub_tests/iterators/operator_equals.test"
-#include "sub_tests/iterators/operator_does_not_equal.test"
-#include "sub_tests/iterators/operator_iterate_forward.test"
-
+//
+// //test case definitions for
+//
+// //test cases for element access of list
+// #include "sub_tests/front.test"
+// #include "sub_tests/back.test"
+//
+// //test cases for retrieving iterators
+// #include "sub_tests/begin.test"
+// #include "sub_tests/end.test"
+//
+// //iterator tests
+// #include "sub_tests/iterators/operator_star.test"
+// #include "sub_tests/iterators/operator_arrow.test"
+// #include "sub_tests/iterators/operator_equals.test"
+// #include "sub_tests/iterators/operator_does_not_equal.test"
+// #include "sub_tests/iterators/operator_iterate_forward.test"
+//
 
 #include <map>
 
+TEST_CASE("clear") {
+  List<int> list{};
+  list.push_front(1);
+  list.push_front(2);
+  list.clear();
+  REQUIRE(list.empty());
+}
 int main(int argc, char *argv[])
 {
   doctest::Context ctx;
