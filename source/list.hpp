@@ -12,244 +12,246 @@
 #include <initializer_list>
 
 // forward declaration of template list class
-template <typename T>
+template<typename T>
 class List;
 
 // forward declaration of free function "reverse"
-template <typename T>
+template<typename T>
 List<T> reverse(List<T> const& list_to_reverse);
 
-template <typename T>
+template<typename T>
 List<T> operator+(List<T> const& lhs, List<T> const& rhs);
 
-template <typename T>
+template<typename T>
 class List {
-  public:
+public:
+  //friend declarations for testing the members
+  template<typename TEST_TYPE>
+  friend size_t get_size(List<TEST_TYPE> const& list_to_test);
 
-    //friend declarations for testing the members   
-    template <typename TEST_TYPE>
-    friend size_t get_size(List<TEST_TYPE> const& list_to_test);
-    template <typename TEST_TYPE>
-    friend ListNode<TEST_TYPE>* 
-      get_first_pointer(List<TEST_TYPE> const& list_to_test);
-    template <typename TEST_TYPE>
-    friend ListNode<TEST_TYPE>* 
-      get_last_pointer(List<TEST_TYPE> const& list_to_test);
+  template<typename TEST_TYPE>
+  friend ListNode<TEST_TYPE>*
+  get_first_pointer(List<TEST_TYPE> const& list_to_test);
 
-    using value_type      = T;
-    using pointer         = T*;
-    using const_pointer   = T const*;
-    using reference       = T&;
-    using const_reference = T const&;
-    using iterator        = ListIterator<T>;
+  template<typename TEST_TYPE>
+  friend ListNode<TEST_TYPE>*
+  get_last_pointer(List<TEST_TYPE> const& list_to_test);
 
-    /* Declaration of Default Constructor */
-    List();
-    
-    /* Declaration of Copy Constructor using Deep-Copy Semantics */
-    List(List const& rhs);
+  using value_type = T;
+  using pointer = T*;
+  using const_pointer = T const*;
+  using reference = T&;
+  using const_reference = T const&;
+  using iterator = ListIterator<T>;
 
-    /* Declaration of Move Constructor */
-    List(List&& rhs);
+  /* Declaration of Default Constructor */
+  List();
 
-    /* Declaration of Initializer-List-based Constructor */
-    List(std::initializer_list<T> ini_list);
+  /* Declaration of Copy Constructor using Deep-Copy Semantics */
+  List(List const& rhs);
 
-    /* Declaration of Destructor */
-    ~List();
+  /* Declaration of Move Constructor */
+  List(List&& rhs);
 
-    /* Declaration of Unifying Assignment Operator - see: Vorlesung 10, pp. 11-13, watch video explanation!*/
-    List& operator=(List rhs);
+  /* Declaration of Initializer-List-based Constructor */
+  List(std::initializer_list<T> ini_list);
 
-    /* Declaration of built-in Member-Swap method used by Unifying Assignment Operator */
-    void swap(List& rhs);
+  /* Declaration of Destructor */
+  ~List();
 
-    /* Declaration of list-comparison-operator in terms of equality */
-    bool operator==(List const& rhs) const;
+  /* Declaration of Unifying Assignment Operator - see: Vorlesung 10, pp. 11-13, watch video explanation!*/
+  List& operator=(List rhs);
 
-    /* Declaration of list-comparison-operator in terms of inequality */
-    bool operator!=(List const& rhs) const;
-    
-    /* Declaration of size-Method */
-    std::size_t size() const;
+  /* Declaration of built-in Member-Swap method used by Unifying Assignment Operator */
+  void swap(List& rhs);
 
-    /* Declaration of empty-Method */
-    bool empty() const;
+  /* Declaration of list-comparison-operator in terms of equality */
+  bool operator==(List const& rhs) const;
 
-    /* Declaration of push_front-Method */
-    void push_front(T const& element);
+  /* Declaration of list-comparison-operator in terms of inequality */
+  bool operator!=(List const& rhs) const;
 
-    /* Declaration of pop_front-Method */
-    void pop_front();
+  /* Declaration of size-Method */
+  std::size_t size() const;
 
-    /* Declaration of push_front-Method */
-    void push_back(T const& element);
+  /* Declaration of empty-Method */
+  bool empty() const;
 
-    /* Declaration of push_front-Method */
-    void pop_back();
+  /* Declaration of push_front-Method */
+  void push_front(T const& element);
 
-    /* Declaration of emplace_front-Method */
-    template <class... Args>
-    void emplace_front(Args&&... args);
+  /* Declaration of pop_front-Method */
+  void pop_front();
 
-    /* Declaration of emplace_back-Method */
-    template <class... Args>
-    void emplace_back(Args&&... args);
+  /* Declaration of push_front-Method */
+  void push_back(T const& element);
 
-    /* Declaration of front-Method */
-    T& front();
+  /* Declaration of push_front-Method */
+  void pop_back();
 
-    /* Declaration of back-Method */
-    T& back();
+  /* Declaration of emplace_front-Method */
+  template<class... Args>
+  void emplace_front(Args&&... args);
 
-    /* Declaration of clear-Method */
-    void clear();
+  /* Declaration of emplace_back-Method */
+  template<class... Args>
+  void emplace_back(Args&&... args);
 
-    /* Declaration of reverse-Method*/
-    void reverse();
+  /* Declaration of front-Method */
+  T& front();
 
-    /* Declaration of begin-Method returning a ListIterator refering to the first list_node */
-    ListIterator<T> begin();
-    /* Declaration of end-Method returning a ListIterator refering to the past-the-end-element which marks the end of the list*/
-    ListIterator<T> end();
+  /* Declaration of back-Method */
+  T& back();
 
-    /* Declaration of insert-Method */
-    ListIterator<T> insert(ListIterator<T> const& position, T const& value);
-    /* Declaration of emplace-Method */
-    template <class... Args>
-    ListIterator<T> emplace(ListIterator<T> const& position, Args&&... args);
-    /* Declaration of erase-Method */
-    ListIterator<T> erase(ListIterator<T> const& position);
+  /* Declaration of clear-Method */
+  void clear();
+
+  /* Declaration of reverse-Method*/
+  void reverse();
+
+  /* Declaration of begin-Method returning a ListIterator refering to the first list_node */
+  ListIterator<T> begin();
+
+  /* Declaration of end-Method returning a ListIterator refering to the past-the-end-element which marks the end of the list*/
+  ListIterator<T> end();
+
+  /* Declaration of insert-Method */
+  ListIterator<T> insert(ListIterator<T> const& position, T const& value);
+
+  /* Declaration of emplace-Method */
+  template<class... Args>
+  ListIterator<T> emplace(ListIterator<T> const& position, Args&&... args);
+
+  /* Declaration of erase-Method */
+  ListIterator<T> erase(ListIterator<T> const& position);
 
   // list members
-  private: 
-    std::size_t size_;
-    ListNode<T>* first_;
-    ListNode<T>* last_;
+private:
+  std::size_t size_;
+  ListNode<T>* first_;
+  ListNode<T>* last_;
 };
 
 /* ======================================== *
  * BEGIN COMMENTING AND IMPLEMENTATION HERE *
  * ======================================== */
 
- //=========================
+//=========================
 // not fully implemented yet
 /* Aufgabe 5.2 - Teil 1 */
-/* ... */
-template <typename T>
-List<T>::List() {}
+/* Setzt die Größe auf 0 und das erste und letzte Element auf nullptr */
+template<typename T>
+List<T>::List() :
+  size_{ 0 }, first_{ nullptr }, last_{ nullptr } {
+}
 
 //=========================
 // test and implement
 /* Aufgabe 5.2 - Teil 2 */
-/* ... */
-template <typename T>
+/* Gibt die Größe der Liste zurück */
+template<typename T>
 std::size_t List<T>::size() const {
-    //TODO: return value of member variable insteaf of 27
-    return 27;
+  return size_;
 };
 
 //=========================
 // test and implement
 /* Aufgabe 5.2 - Teil 3 */
-/* ... */
-template <typename T>
+/* Returns true, if list empty, otherwise false */
+template<typename T>
 bool List<T>::empty() const {
-    // check whether size member variable is zero -- this should be a one line implementation
-    return false;
+  return size_ == 0;
 };
 
 //=========================
 /* Aufgabe 5.3 - Teil 1 */
 /* ... */
-template <typename T>
+template<typename T>
 void List<T>::push_front(T const& element) {
-    // TODO: push_front-method (Aufgabe 5.3)
+  // TODO: push_front-method (Aufgabe 5.3)
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 2 */
 /* ... */
-template <typename T>
+template<typename T>
 void List<T>::pop_front() {
-    if (empty()) {
-        throw "List is empty";
-    }
+  if (empty()) {
+    throw "List is empty";
+  }
 
-    // TODO: remainder of pop_front-method (Aufgabe 5.3)
+  // TODO: remainder of pop_front-method (Aufgabe 5.3)
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 3 */
 /* ... */
-template <typename T>
+template<typename T>
 void List<T>::push_back(T const& element) {
-    // TODO: push_back-method (Aufgabe 5.3)
+  // TODO: push_back-method (Aufgabe 5.3)
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 4 */
 /* ... */
-template <typename T>
+template<typename T>
 void List<T>::pop_back() {
-    if (empty()) {
-        throw "List is empty";
-    }
+  if (empty()) {
+    throw "List is empty";
+  }
 
-    // TODO: remainder of pop_back-method (Aufgabe 5.3)
+  // TODO: remainder of pop_back-method (Aufgabe 5.3)
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 5 */
 /* ... */
-template <typename T>
-template <class... Args>
-void List<T>::emplace_back(Args&&... args)
-{
-    // TODO: emplace_back-method (Aufgabe 5.3)
+template<typename T>
+template<class... Args>
+void List<T>::emplace_back(Args&&... args) {
+  // TODO: emplace_back-method (Aufgabe 5.3)
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 6 */
 /* ... */
-template <typename T>
-template <class... Args>
-void List<T>::emplace_front(Args&&... args)
-{
-    // TODO: emplace_front-method (Aufgabe 5.3)
+template<typename T>
+template<class... Args>
+void List<T>::emplace_front(Args&&... args) {
+  // TODO: emplace_front-method (Aufgabe 5.3)
 }
 
 
 //=========================
 /* Aufgabe 5.3 - Teil 6 */
 /* ... */
-template <typename T>
+template<typename T>
 T& List<T>::front() {
-    if (empty()) {
-        throw "List is empty";
-    }
+  if (empty()) {
+    throw "List is empty";
+  }
 
-    // TODO: remainder of front-method (Aufgabe 5.3)
+  // TODO: remainder of front-method (Aufgabe 5.3)
 }
 
 //=========================
 /* Aufgabe 5.3 - Teil 8 */
 /* ... */
-template <typename T>
+template<typename T>
 T& List<T>::back() {
-    if (empty()) {
-        throw "List is empty";
-    }
+  if (empty()) {
+    throw "List is empty";
+  }
 
-    // TODO: remainder of back-method (Aufgabe 5.3)
+  // TODO: remainder of back-method (Aufgabe 5.3)
 }
 
 //=========================
 // test and implement:
-// TODO: clear 
+// TODO: clear
 // Aufgabe 5.4 - Teil 1
 /* ... */
-template <typename T>
+template<typename T>
 void List<T>::clear() {
 
 }
@@ -259,9 +261,9 @@ void List<T>::clear() {
 // TODO: List Destructor implemented by calling clear
 // Aufgabe 5.4 - Teil 2
 /* ... */
-template <typename T>
+template<typename T>
 List<T>::~List() {
-    //TODO: Implement via clear-Method (Aufgabe 5.4)
+  //TODO: Implement via clear-Method (Aufgabe 5.4)
 } //can not be tested with unit tests
 
 //=========================
@@ -269,15 +271,16 @@ List<T>::~List() {
 // TODO: Copy-Konstruktor using Deep-Copy semantics
 // Aufgabe 5.5
 /* ... */
-template <typename T>
-List<T>::List(List<T> const& rhs) {}
+template<typename T>
+List<T>::List(List<T> const& rhs) {
+}
 
 //=========================
 // test and implement:
 // TODO: helper-swap-method for bultin-types used by unifying assignment operator (see Vorlesung 10, pp. 11-13)
 // Aufgabe 5.6 - Teil 1
 /* ... */
-template <typename T>
+template<typename T>
 void List<T>::swap(List<T>& rhs) {
 
 }
@@ -287,7 +290,7 @@ void List<T>::swap(List<T>& rhs) {
 // TODO: unyfing assignment operator (see Vorlesung 10, pp. 11-13)
 // Aufgabe 5.6 - Teil 2
 /* ... */
-template <typename T>
+template<typename T>
 List<T>& List<T>::operator=(List<T> rhs) {
 
 }
@@ -295,7 +298,7 @@ List<T>& List<T>::operator=(List<T> rhs) {
 //=========================
 // Aufgabe 5.7 - Teil 1
 /* ... */
-template <typename T>
+template<typename T>
 void List<T>::reverse() {
 
 }
@@ -303,7 +306,7 @@ void List<T>::reverse() {
 //=========================
 // Aufgabe 5.7 - Teil 2
 /* ... */
-template <typename T>
+template<typename T>
 List<T> reverse(List<T> const& list_to_reverse) {
 
 }
@@ -311,59 +314,60 @@ List<T> reverse(List<T> const& list_to_reverse) {
 //=========================
 // Aufgabe 5.8 - Teil 1
 /* ... */
-template <typename T>
+template<typename T>
 bool List<T>::operator==(List const& rhs) const {
-    //TODO: operator== (Aufgabe 5.8)
+  //TODO: operator== (Aufgabe 5.8)
 }
 
 //=========================
 // Aufgabe 5.8 - Teil 2
 /* ... */
-template <typename T>
+template<typename T>
 bool List<T>::operator!=(List const& rhs) const {
-    //TODO: operator!= (Aufgabe 5.8)
-    // make use of operator== you implemented
+  //TODO: operator!= (Aufgabe 5.8)
+  // make use of operator== you implemented
 }
 
 //=========================
 // Aufgabe 5.9 - Teil 1
 /* ... */
-template <typename T>
+template<typename T>
 ListIterator<T> List<T>::begin() {
-    //TODO: begin-Method returning an Iterator to the 
-    //      first element in the List (Aufgabe 5.9)
-    return {};
+  //TODO: begin-Method returning an Iterator to the
+  //      first element in the List (Aufgabe 5.9)
+  return {};
 }
 
 //=========================
 // Aufgabe 5.9 - Teil 2
 /* ... */
-template <typename T>
+template<typename T>
 ListIterator<T> List<T>::end() {
-    //TODO: end-Method returning an Iterator to element after (!) 
-    //      the last element in the List (Aufgabe 5.9)
-    return {};
+  //TODO: end-Method returning an Iterator to element after (!)
+  //      the last element in the List (Aufgabe 5.9)
+  return {};
 }
 
 //=========================
 // Aufgabe 5.11
 /* ... */
-template <typename T>
-ListIterator<T> List<T>::insert(ListIterator<T> const& position, T const& value) {
+template<typename T>
+ListIterator<T> List<
+  T>::insert(ListIterator<T> const& position, T const& value) {
 
 }
 
-template <typename T>
-template <class... Args>
-ListIterator<T> List<T>::emplace(ListIterator<T> const& position, Args&&... args)
-{
+template<typename T>
+template<class... Args>
+ListIterator<T> List<T>::emplace(ListIterator<T> const& position,
+                                 Args&&... args) {
 
 }
 
 //=========================
 // Aufgabe 5.12
 /* ... */
-template <typename T>
+template<typename T>
 ListIterator<T> List<T>::erase(ListIterator<T> const& position) {
 
 }
@@ -375,22 +379,23 @@ ListIterator<T> List<T>::erase(ListIterator<T> const& position) {
 // test and implement:
 // TODO: Move-Konstruktor (Aufgabe 5.14)
 /* ... */
-template <typename T>
-List<T>::List(List<T>&& rhs) {}
+template<typename T>
+List<T>::List(List<T>&& rhs) {
+}
 
 //=========================
 // test and implement:
 //TODO: Initializer - List Konstruktor (5.15 - Teil 1)
 /* ...  */
-template <typename T>
+template<typename T>
 List<T>::List(std::initializer_list<T> ini_list) {
-    //not implemented yet
+  //not implemented yet
 }
 
 //=========================
 // Aufgabe 5.15 - Teil 2
 /* ... */
-template <typename T>
+template<typename T>
 List<T> operator+(List<T> const& lhs, List<T> const& rhs) {
 
 }
