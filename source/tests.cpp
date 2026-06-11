@@ -163,6 +163,53 @@ TEST_CASE("swap and operator=") {
     CHECK(b.front() == 7);
   }
 }
+TEST_CASE("reverse") {
+    List<int> list;
+  SUBCASE("reverse mit mehreren Elementen") {
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.reverse();
+    CHECK(list.size()  == 3);
+    CHECK(list.front() == 3);
+    CHECK(list.back()  == 1);
+  }
+
+  SUBCASE("reverse mit einem Element") {
+    list.push_back(42);
+    list.reverse();
+    CHECK(list.front() == 42);
+    CHECK(list.size()  == 1);
+  }
+
+  SUBCASE("reverse mit leerer Liste") {
+    list.reverse();
+    CHECK(list.empty());
+  }
+
+  SUBCASE("2-mal reverse") {
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.reverse();
+    list.reverse();
+    CHECK(list.front() == 1);
+    CHECK(list.back()  == 3);
+  }
+
+  SUBCASE("reverse gibt Kopie zurück") {
+    List<int> original;
+    original.push_back(1);
+    original.push_back(2);
+    original.push_back(3);
+    List<int> reversed = reverse(original);
+    CHECK(reversed.front() == 3);
+    CHECK(reversed.back()  == 1);
+    CHECK(reversed.size()  == 3);
+    CHECK(original.front() == 1);
+    CHECK(original.back()  == 3);
+  }
+}
 int main(int argc, char* argv[]) {
   doctest::Context ctx;
   ctx.applyCommandLine(argc, argv);

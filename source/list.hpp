@@ -307,7 +307,8 @@ List<T>::~List() {
 // Aufgabe 5.5
 /* Konstruiert eine tiefe Kopie von der übergebenen Liste */
 template<typename T>
-List<T>::List(List<T> const& rhs)  : size_{0}, first_{nullptr}, last_{nullptr}{
+List<T>::List(List<T> const& rhs) :
+  size_{ 0 }, first_{ nullptr }, last_{ nullptr } {
   ListNode<T>* current = rhs.first_;
   while (current != nullptr) {
     push_back(current->value);
@@ -321,9 +322,9 @@ List<T>::List(List<T> const& rhs)  : size_{0}, first_{nullptr}, last_{nullptr}{
 /* Tauscht die Attribute der Listen */
 template<typename T>
 void List<T>::swap(List<T>& rhs) {
-  std::swap(size_,  rhs.size_);
+  std::swap(size_, rhs.size_);
   std::swap(first_, rhs.first_);
-  std::swap(last_,  rhs.last_);
+  std::swap(last_, rhs.last_);
 }
 
 //=========================
@@ -339,18 +340,25 @@ List<T>& List<T>::operator=(List<T> rhs) {
 
 //=========================
 // Aufgabe 5.7 - Teil 1
-/* ... */
+/* Kehrt die Liste um, indem prev und next zeiger getauscht werden. */
 template<typename T>
 void List<T>::reverse() {
-
+  ListNode<T>* current = first_;
+  while (current != nullptr) {
+    std::swap(current->next, current->prev);
+    current = current->prev;
+  }
+  std::swap(first_, last_);
 }
 
 //=========================
 // Aufgabe 5.7 - Teil 2
-/* ... */
+/* Erzeugt eine Kopie von der übergebenen Liste, kehrt die reihenfolge und gibt diese zurück */
 template<typename T>
 List<T> reverse(List<T> const& list_to_reverse) {
-
+  List<T> result{list_to_reverse};
+  result.reverse();
+  return result;
 }
 
 //=========================
