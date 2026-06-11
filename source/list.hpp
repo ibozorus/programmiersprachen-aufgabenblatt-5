@@ -317,22 +317,24 @@ List<T>::List(List<T> const& rhs)  : size_{0}, first_{nullptr}, last_{nullptr}{
 
 //=========================
 // test and implement:
-// TODO: helper-swap-method for bultin-types used by unifying assignment operator (see Vorlesung 10, pp. 11-13)
 // Aufgabe 5.6 - Teil 1
-/* ... */
+/* Tauscht die Attribute der Listen */
 template<typename T>
 void List<T>::swap(List<T>& rhs) {
-
+  std::swap(size_,  rhs.size_);
+  std::swap(first_, rhs.first_);
+  std::swap(last_,  rhs.last_);
 }
 
 //=========================
 // test and implement:
-// TODO: unyfing assignment operator (see Vorlesung 10, pp. 11-13)
+// Das Objekt übernimmt die Attribute von rhs, rhs wird beim verlassen des scope freigegeben
 // Aufgabe 5.6 - Teil 2
 /* ... */
 template<typename T>
 List<T>& List<T>::operator=(List<T> rhs) {
-
+  swap(rhs);
+  return *this;
 }
 
 //=========================

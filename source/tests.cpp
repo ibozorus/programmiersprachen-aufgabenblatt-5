@@ -93,6 +93,76 @@ TEST_CASE("Copy Konstruktor") {
   }
 }
 
+TEST_CASE("swap and operator=") {
+  List<int> a, b;
+  SUBCASE("swap") {
+    a.push_back(1); a.push_back(2);
+    b.push_back(10); b.push_back(20); b.push_back(30);
+    a.swap(b);
+    CHECK(a.size()  == 3);
+    CHECK(a.front() == 10);
+    CHECK(a.back()  == 30);
+    CHECK(b.size()  == 2);
+    CHECK(b.front() == 1);
+    CHECK(b.back()  == 2);
+  }
+  SUBCASE("swap mit einer leeren Liste") {
+    a.push_back(42);
+    a.swap(b);
+    CHECK(a.empty());
+    CHECK(b.size()  == 1);
+    CHECK(b.front() == 42);
+  }
+  SUBCASE("swap mit 2 leeren Listen") {
+    a.swap(b);
+    CHECK(a.empty());
+    CHECK(b.empty());
+  }
+  SUBCASE("operator= kopiert korrekt") {
+    a.push_back(1); a.push_back(2); a.push_back(3);
+    b = a;
+    CHECK(b.size()  == 3);
+    CHECK(b.front() == 1);
+    CHECK(b.back()  == 3);
+  }
+  SUBCASE("operator= erzeugt freie Kopie") {
+    a.push_back(10);
+    b = a;
+    b.push_back(99);
+    CHECK(a.size() == 1);
+    CHECK(b.size() == 2);
+  }
+  SUBCASE("operator= überschreibt lhs") {
+    b.push_back(99); b.push_back(100);  // b hat vorher Inhalt
+    a.push_back(1); a.push_back(2); a.push_back(3);
+    b = a;
+    CHECK(b.size()  == 3);
+    CHECK(b.front() == 1);
+  }
+  SUBCASE("Self Zuweisung") {
+    List<int> a;
+    a.push_back(1); a.push_back(2);
+    a = a;
+    CHECK(a.size()  == 2);
+    CHECK(a.front() == 1);
+    CHECK(a.back()  == 2);
+  }
+  SUBCASE("operator= mit leerer Liste") {
+    a.push_back(5);
+    a = b;
+    CHECK(a.empty());
+    CHECK(a.size() == 0);
+  }
+  SUBCASE("Chain Zuwesiung") {
+    List<int> a, b, c;
+    c.push_back(7);
+    a = b = c;
+    CHECK(a.size()  == 1);
+    CHECK(a.front() == 7);
+    CHECK(b.size()  == 1);
+    CHECK(b.front() == 7);
+  }
+}
 int main(int argc, char* argv[]) {
   doctest::Context ctx;
   ctx.applyCommandLine(argc, argv);
