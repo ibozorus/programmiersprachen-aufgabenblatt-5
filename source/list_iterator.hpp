@@ -69,16 +69,15 @@ ListIterator<T>::ListIterator(ListNode<T>* node) : node_{ node }
 
 //(Aufgabe 3.10 - Teil 1)
 /* Definition of Dereferenceing operator*() /
-/* ... */
+/* Gibt die Referenz auf den Wert des Listenelements zurück */
 // not implemented yet
 template <typename T>
 T& ListIterator<T>::operator*() const {
     if (nullptr == node_) {
         throw "Iterator does not point to valid node";
     }
+  return node_->value;
 
-    //TODO: remaining implementation of derefenciation of 
-    //      iterator using operator*
 
 } //call: *it
 
@@ -92,61 +91,56 @@ T* ListIterator<T>::operator->() const {
     if (nullptr == node_) {
         throw "Iterator does not point to valid node";
     }
-
-    //TODO: remaining implementation of derefenciation of 
-    //      iterator using operator->
+  return &node_->value;
 }  //call it->method() or it->member
 
 //=========================
 // (Aufgabe 3.10 - Teil 3)
 /* Definition of preincrement operator ++it /
-/* ... */
+/* Geht zum nächsten knoten und gibt *this zurück */
 // not implemented yet
 template <typename T>
 ListIterator<T>& ListIterator<T>::operator++() {
     if (nullptr == node_) {
         throw "Iterator does not point to valid node";
     }
-
-    //TODO: Implement Postincrement-Operation for Iterator
+  node_ = node_->next;
+  return *this;
 }
 
 //=========================
 //  (Aufgabe 3.10 - Teil 4)
 /* Definition of postincrement operator it++ /
-/* ... */
+/* Geht zum nächsten Knoten und gibt den Vorgänger zurück */
 // not implemented yet
 template <typename T>
 ListIterator<T> ListIterator<T>::operator++(int) {
     if (nullptr == node_) {
         throw "Iterator does not point to valid node";
     }
-
-    //TODO: Implement Postincrement-Operation for Iterator
+  ListIterator<T> old{node_};
+  node_ = node_->next;
+  return old;
 }
 
 //=========================
 //  (Aufgabe 3.10 - Teil 5)
 /* Definition of comparison-operator for iterators in terms of equality */
-/* ... */
+/* Gibt true zurück, falls Knoten gleich sind. Sonst false. */
 // not implemented yet
 template <typename T>
 bool ListIterator<T>::operator==(ListIterator<T> x) const {
-    //TODO: Implement Equality-Operation for Iterator
-    // Iterators should be the same if they refer to the same node
-    return false;
+    return this->node_ == x.node_;
 } // call it: == it
 
 //=========================
 //  (Aufgabe 3.10 - Teil 6)
 /* Definition of comparison-operator for iterators in terms of inequality */
-/* ... */
+/* Gibt true zurück. falls Knoten ungleich sind. Sonst false. */
 // not implemented yet
 template <typename T>
 bool ListIterator<T>::operator!=(ListIterator<T> x) const {
-    //TODO: Implement Inequality-Operation for Iterator  
-    // Reuse operator==
-    return false;
+    return !(*this == x);
 } // call it: != it
 
 //=========================
