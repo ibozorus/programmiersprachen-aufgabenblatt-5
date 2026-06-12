@@ -42,10 +42,10 @@ ListNode<T>* get_node_pointer(ListIterator<T> const& list_iterator_to_test) {
 //test cases for element access of list
 #include "sub_tests/front.test"
 #include "sub_tests/back.test"
-//
-// //test cases for retrieving iterators
-// #include "sub_tests/begin.test"
-// #include "sub_tests/end.test"
+
+//test cases for retrieving iterators
+#include "sub_tests/begin.test"
+#include "sub_tests/end.test"
 //
 // //iterator tests
 // #include "sub_tests/iterators/operator_star.test"
