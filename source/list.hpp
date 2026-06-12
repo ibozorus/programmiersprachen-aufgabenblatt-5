@@ -356,26 +356,36 @@ void List<T>::reverse() {
 /* Erzeugt eine Kopie von der übergebenen Liste, kehrt die reihenfolge und gibt diese zurück */
 template<typename T>
 List<T> reverse(List<T> const& list_to_reverse) {
-  List<T> result{list_to_reverse};
+  List<T> result{ list_to_reverse };
   result.reverse();
   return result;
 }
 
 //=========================
 // Aufgabe 5.8 - Teil 1
-/* ... */
+/* Gibt true zurück falls die Listeninhalt gleich ist, sonst false */
 template<typename T>
 bool List<T>::operator==(List const& rhs) const {
-  //TODO: operator== (Aufgabe 5.8)
+  if (this->size() != rhs.size()) {
+    return false;
+  }
+  ListNode<T>* current_lhs = this->first_;
+  ListNode<T>* current_rhs = rhs.first_;
+  while (current_lhs != nullptr && current_rhs != nullptr) {
+    if (current_lhs->value != current_rhs->value)
+      return false;
+    current_lhs = current_lhs->next;
+    current_rhs = current_rhs->next;
+  }
+  return true;
 }
 
 //=========================
 // Aufgabe 5.8 - Teil 2
-/* ... */
+/* Gibt true zurück falls die Listeninhalt ungleich ist, sonst false */
 template<typename T>
 bool List<T>::operator!=(List const& rhs) const {
-  //TODO: operator!= (Aufgabe 5.8)
-  // make use of operator== you implemented
+  return !(*this == rhs);
 }
 
 //=========================

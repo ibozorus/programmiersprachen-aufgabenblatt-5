@@ -210,6 +210,70 @@ TEST_CASE("reverse") {
     CHECK(original.back()  == 3);
   }
 }
+
+TEST_CASE("operator== and operator!=") {
+
+  SUBCASE("leere listen gleich") {
+    List<int> lhs, rhs;
+    CHECK(lhs == rhs);
+    CHECK_FALSE(lhs != rhs);
+  }
+
+  SUBCASE("Gleiche Listen mit einem Element") {
+    List<int> lhs, rhs;
+    lhs.push_back(42);
+    rhs.push_back(42);
+    CHECK(lhs == rhs);
+    CHECK_FALSE(lhs != rhs);
+  }
+
+  SUBCASE("Gleiche Listen mit mehreren Elementen") {
+    List<int> lhs, rhs;
+    for (int i : {1, 2, 3}) { lhs.push_back(i); rhs.push_back(i); }
+    CHECK(lhs == rhs);
+    CHECK_FALSE(lhs != rhs);
+  }
+
+  SUBCASE("Unterschiedliche Elemente, gleiche Größe") {
+    List<int> lhs, rhs;
+    lhs.push_back(1); lhs.push_back(2);
+    rhs.push_back(1); rhs.push_back(99);
+    CHECK_FALSE(lhs == rhs);
+    CHECK(lhs != rhs);
+  }
+
+  SUBCASE("Unterschiedliche Größe") {
+    List<int> lhs, rhs;
+    lhs.push_back(1); lhs.push_back(2);
+    rhs.push_back(1);
+    CHECK_FALSE(lhs == rhs);
+    CHECK(lhs != rhs);
+  }
+
+  SUBCASE("Eine leere, eine nicht-leere Liste") {
+    List<int> lhs, rhs;
+    rhs.push_back(1);
+    CHECK_FALSE(lhs == rhs);
+    CHECK(lhs != rhs);
+  }
+
+  SUBCASE("Liste mit sich selbst vergleichen") {
+    List<int> list;
+    list.push_back(1); list.push_back(2);
+    CHECK(list == list);
+    CHECK_FALSE(list != list);
+  }
+
+  SUBCASE("reihenfolge wichtig") {
+    List<int> lhs, rhs;
+    lhs.push_back(1); lhs.push_back(2);
+    rhs.push_back(2); rhs.push_back(1);
+    CHECK_FALSE(lhs == rhs);
+    CHECK(lhs != rhs);
+  }
+}
+
+
 int main(int argc, char* argv[]) {
   doctest::Context ctx;
   ctx.applyCommandLine(argc, argv);
