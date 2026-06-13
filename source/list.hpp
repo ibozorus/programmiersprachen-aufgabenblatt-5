@@ -525,6 +525,10 @@ List<T> operator+(List<T> const& lhs, List<T> const& rhs) {
   }
   return result;
 }
+/**
+ * Aufgabe 15:
+ * 0-Mal
+ */
 
 
 #endif // #ifndef BUW_LIST_HPP
