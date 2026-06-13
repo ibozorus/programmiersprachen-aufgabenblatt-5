@@ -393,7 +393,7 @@ bool List<T>::operator!=(List const& rhs) const {
 /* Gibt einen Iterator auf das erste Element der Liste zurück. Falls liste leer, dann nullptr */
 template<typename T>
 ListIterator<T> List<T>::begin() {
-  return ListIterator<T>{this->first_};
+  return ListIterator<T>{ this->first_ };
 }
 
 //=========================
@@ -401,23 +401,49 @@ ListIterator<T> List<T>::begin() {
 /* Gibt einen Iterator mit nullptr zurück, hinter letztes Element*/
 template<typename T>
 ListIterator<T> List<T>::end() {
-  return ListIterator<T>{nullptr};
+  return ListIterator<T>{ nullptr };
 }
 
 //=========================
 // Aufgabe 5.11
-/* ... */
+/* Fügt ein neues Element mit value vor der übergebenen position */
 template<typename T>
 ListIterator<T> List<
   T>::insert(ListIterator<T> const& position, T const& value) {
+  ListNode<T>* new_node = new ListNode<T>{ value, nullptr, nullptr };
+  if (position == end()) {
+    if (empty()) {
+      first_ = new_node;
+      last_ = new_node;
+    } else {
+      last_->next = new_node;
+      new_node->prev = last_;
+      last_ = new_node;
+    }
+  } else {
+    ListNode<T>* next_node = position.node();
+    ListNode<T>* prev_node = next_node->prev;
 
+    new_node->next = next_node;
+    new_node->prev = prev_node;
+    next_node->prev = new_node;
+
+    if (prev_node == nullptr) {
+      first_ = new_node;
+    } else {
+      prev_node->next = new_node;
+    }
+  }
+
+  size_++;
+  return ListIterator<T>{ new_node };
 }
 
 template<typename T>
 template<class... Args>
 ListIterator<T> List<T>::emplace(ListIterator<T> const& position,
                                  Args&&... args) {
-
+  return insert(position, T(std::forward<Args>(args)...));
 }
 
 //=========================

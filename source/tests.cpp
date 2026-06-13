@@ -271,7 +271,67 @@ TEST_CASE("operator== and operator!=") {
     CHECK(lhs != rhs);
   }
 }
+TEST_CASE("insert") {
+  SUBCASE("vor erstem Element") {
+    List<int> list;
+    list.push_back(2);
+    list.push_back(3);
+    auto it = list.insert(list.begin(), 1);
+    CHECK(*it          == 1);
+    CHECK(list.front() == 1);
+    CHECK(list.size()  == 3);
+  }
+  SUBCASE("in der Mitte") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(3);
+    list.push_back(4);
+    auto pos = list.begin();
+    pos++;
+    auto it  = list.insert(pos, 2);
+    auto pos2 = list.begin();
+    pos2++;
+    CHECK(*pos2         == 2);
+    CHECK(*it         == 2);
+    CHECK(list.size() == 4);
+  }
+  SUBCASE("am Ende") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(2);
+    list.insert(list.end(), 3);
+    CHECK(list.back() == 3);
+    CHECK(list.size() == 3);
+  }
+  SUBCASE("in leere Liste") {
+    List<int> list;
+    auto it = list.insert(list.end(), 42);
+    CHECK(*it          == 42);
+    CHECK(list.size()  == 1);
+    CHECK(list.front() == 42);
+    CHECK(list.back()  == 42);
+  }
+}
 
+TEST_CASE("emplace") {
+  SUBCASE("verhält sich wie insert für einfache Typen") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(3);
+    auto pos = list.begin(); ++pos;
+    list.emplace(pos, 2);
+    auto it = list.begin();
+    CHECK(*it == 1); ++it;
+    CHECK(*it == 2); ++it;
+    CHECK(*it == 3);
+  }
+  SUBCASE("in leere Liste") {
+    List<int> list;
+    auto it = list.emplace(list.end(), 99);
+    CHECK(*it         == 99);
+    CHECK(list.size() == 1);
+  }
+}
 
 int main(int argc, char* argv[]) {
   doctest::Context ctx;
