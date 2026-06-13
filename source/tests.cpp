@@ -2,6 +2,7 @@
 #include <doctest.h>
 
 #include "list.hpp"
+#include "aufgabe_13.hpp"
 
 
 // Hilfsfunktionen, um indirekt auf die Member der Klasse List zuzugreifen (nur für die Tests!)
@@ -402,7 +403,38 @@ TEST_CASE("erase") {
     CHECK(list.size() == 0);
   }
 }
+TEST_CASE("std::copy und has_same_content") {
+  SUBCASE("Liste wird korrekt in Vector kopiert") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
 
+    std::vector<int> vec;
+    std::copy(list.begin(), list.end(), std::back_inserter(vec));
+
+    CHECK(has_same_content(list, vec));
+  }
+  SUBCASE("leere Liste ergibt leeren Vector") {
+    List<int> list;
+    std::vector<int> vec;
+    std::copy(list.begin(), list.end(), std::back_inserter(vec));
+    CHECK(has_same_content(list, vec));
+  }
+  SUBCASE("unterschiedliche Inhalte") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(2);
+    std::vector<int> vec{1, 99};
+    CHECK_FALSE(has_same_content(list, vec));
+  }
+  SUBCASE("unterschiedliche Größe") {
+    List<int> list;
+    list.push_back(1);
+    std::vector<int> vec{1, 2};
+    CHECK_FALSE(has_same_content(list, vec));
+  }
+}
 int main(int argc, char* argv[]) {
   doctest::Context ctx;
   ctx.applyCommandLine(argc, argv);
