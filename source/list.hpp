@@ -490,9 +490,15 @@ ListIterator<T> List<T>::erase(ListIterator<T> const& position) {
 //=========================
 // test and implement:
 // TODO: Move-Konstruktor (Aufgabe 5.14)
-/* ... */
+/* Verschiebt den Zustand der anderen Liste in die linke Liste*/
 template<typename T>
-List<T>::List(List<T>&& rhs) {
+List<T>::List(List<T>&& rhs) :
+  first_{ rhs.first_ },
+  last_{ rhs.last_ },
+  size_{ rhs.size_ } {
+  rhs.first_ = nullptr;
+  rhs.last_ = nullptr;
+  rhs.size_ = 0;
 }
 
 //=========================

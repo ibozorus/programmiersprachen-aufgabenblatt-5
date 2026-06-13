@@ -435,6 +435,39 @@ TEST_CASE("std::copy und has_same_content") {
     CHECK_FALSE(has_same_content(list, vec));
   }
 }
+TEST_CASE("move constructor") {
+  SUBCASE("original leer nach move") {
+    List<int> list;
+    list.push_front(1);
+    list.push_front(2);
+    list.push_front(3);
+    list.push_front(4);
+
+    List<int> list2 = std::move(list);
+
+    REQUIRE(0 == list.size());
+    REQUIRE(list.empty());
+    REQUIRE(4 == list2.size());
+  }
+  SUBCASE("werte korrekt") {
+    List<int> list;
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+
+    List<int> list2 = std::move(list);
+
+    REQUIRE(list2.front() == 1);
+    REQUIRE(list2.back()  == 3);
+    REQUIRE(list2.size()  == 3);
+  }
+  SUBCASE("leere liste") {
+    List<int> list;
+    List<int> list2 = std::move(list);
+    REQUIRE(list.empty());
+    REQUIRE(list2.empty());
+  }
+}
 int main(int argc, char* argv[]) {
   doctest::Context ctx;
   ctx.applyCommandLine(argc, argv);
