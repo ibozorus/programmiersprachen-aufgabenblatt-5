@@ -468,6 +468,44 @@ TEST_CASE("move constructor") {
     REQUIRE(list2.empty());
   }
 }
+TEST_CASE("initializer list") {
+  SUBCASE("werte korrekt") {
+    List<int> list{1, 2, 3};
+    CHECK(list.size()  == 3);
+    CHECK(list.front()   == 1);
+    CHECK(list.back()    == 3);
+  }
+  SUBCASE("leer") {
+    List<int> list{};
+    CHECK(list.empty());
+  }
+}
+
+TEST_CASE("operator+") {
+  SUBCASE("zwei Listen concat") {
+    List<int> result = List<int>{1, 2} + List<int>{5, 6};
+    REQUIRE(result.size() == 4);
+    auto it = result.begin();
+    CHECK(*it == 1); ++it;
+    CHECK(*it == 2); ++it;
+    CHECK(*it == 5); ++it;
+    CHECK(*it == 6);
+  }
+  SUBCASE("linke liste leer") {
+    List<int> result = List<int>{} + List<int>{1, 2};
+    REQUIRE(result.size() == 2);
+    CHECK(result.front() == 1);
+  }
+  SUBCASE("rechte liste leer") {
+    List<int> result = List<int>{1, 2} + List<int>{};
+    REQUIRE(result.size() == 2);
+    CHECK(result.back() == 2);
+  }
+  SUBCASE("beide leer") {
+    List<int> result = List<int>{} + List<int>{};
+    CHECK(result.empty());
+  }
+}
 int main(int argc, char* argv[]) {
   doctest::Context ctx;
   ctx.applyCommandLine(argc, argv);

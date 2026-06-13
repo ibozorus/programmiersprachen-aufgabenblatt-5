@@ -504,18 +504,26 @@ List<T>::List(List<T>&& rhs) :
 //=========================
 // test and implement:
 //TODO: Initializer - List Konstruktor (5.15 - Teil 1)
-/* ...  */
+/* Erzeugt eine Liste aus der übergebenen brace-enclosed initializer list  */
 template<typename T>
-List<T>::List(std::initializer_list<T> ini_list) {
-  //not implemented yet
+List<T>::List(std::initializer_list<T> ini_list) :
+  first_{ nullptr }, last_{ nullptr },
+  size_(0) {
+  for (T const& val: ini_list) {
+    push_back(val);
+  }
 }
 
 //=========================
 // Aufgabe 5.15 - Teil 2
-/* ... */
+/* Fügt 2 übergebene Liste zu einer dritten Liste hinzu und gibt diese zurück */
 template<typename T>
 List<T> operator+(List<T> const& lhs, List<T> const& rhs) {
-
+  List<T> result{ lhs };
+  for (T const& val: rhs) {
+    result.push_back(val);
+  }
+  return result;
 }
 
 
