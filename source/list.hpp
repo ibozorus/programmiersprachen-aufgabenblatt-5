@@ -111,9 +111,11 @@ public:
 
   /* Declaration of begin-Method returning a ListIterator refering to the first list_node */
   ListIterator<T> begin();
+  ListIterator<T> begin() const;
 
   /* Declaration of end-Method returning a ListIterator refering to the past-the-end-element which marks the end of the list*/
   ListIterator<T> end();
+  ListIterator<T> end() const;
 
   /* Declaration of insert-Method */
   ListIterator<T> insert(ListIterator<T> const& position, T const& value);
@@ -395,12 +397,20 @@ template<typename T>
 ListIterator<T> List<T>::begin() {
   return ListIterator<T>{ this->first_ };
 }
+template<typename T>
+ListIterator<T> List<T>::begin() const{
+  return ListIterator<T>{ this->first_ };
+}
 
 //=========================
 // Aufgabe 5.9 - Teil 2
 /* Gibt einen Iterator mit nullptr zurück, hinter letztes Element*/
 template<typename T>
 ListIterator<T> List<T>::end() {
+  return ListIterator<T>{ nullptr };
+}
+template<typename T>
+ListIterator<T> List<T>::end() const{
   return ListIterator<T>{ nullptr };
 }
 
