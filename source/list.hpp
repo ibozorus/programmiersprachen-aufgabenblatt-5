@@ -448,10 +448,30 @@ ListIterator<T> List<T>::emplace(ListIterator<T> const& position,
 
 //=========================
 // Aufgabe 5.12
-/* ... */
+/* Entfernt das Element an der übergebenen Position */
 template<typename T>
 ListIterator<T> List<T>::erase(ListIterator<T> const& position) {
-
+  ListNode<T>* current_node = position.node();
+  ListNode<T>* prev_node = current_node->prev;
+  ListNode<T>* next_node = current_node->next;
+  if (size_ == 1) {
+    last_ = nullptr;
+    first_ = nullptr;
+  }else {
+    if (prev_node == nullptr) {
+      first_ = next_node;
+      first_->prev = nullptr;
+    }else if (next_node == nullptr) {
+      last_ = prev_node;
+      last_->next = nullptr;
+    }else {
+      prev_node->next = next_node;
+      next_node->prev = prev_node;
+    }
+  }
+  size_--;
+  delete current_node;
+  return ListIterator<T>{next_node};
 }
 
 //=========================
